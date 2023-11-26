@@ -2,7 +2,9 @@
 title: "r_intro PS 1"
 author: "Nicholus Tint Zaw"
 date: "2022-10-31"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -90,5 +92,48 @@ What I mean by 4 is the histograms and mean values from the following 4 distribu
 2. `means_list_1`
 3. `means_list_2`
 4. `means_list_3` 
+
+df<-iris
+
+population_mean<-mean(df$Sepal.Length)
+
+typeof(population_mean)
+
+
+set.seed(3432)
+
+sample_mean<-mean(sample(df$Sepal.Length,30))
+
+c(population_mean,sample_mean)
+
+population_mean-sample_mean
+
+
+
+hist(df$Sepal.Length)
+
+set.seed(3456)
+mean_list_1=replicate(n=100,expr=mean(sample(df$Sepal.Length,size=10,replace=TRUE)))
+
+mean_list_2=replicate(n=200,expr=mean(sample(df$Sepal.Length,size=30,replace=TRUE)))
+
+mean_list_3=replicate(n=1000,expr=mean(sample(df$Sepal.Length,size=50,replace=TRUE)))
+
+
+mean_compare<-c("population mean"=population_mean,
+                "mean_list_1"=mean(mean_list_1),
+                "mean_list_2"=mean(mean_list_2),
+                "mean_list_3"=mean(mean_list_3)
+                )
+mean_compare
+
+
+layout(matrix(c(1,2,3,4),2,2,byrow="TRUE"))
+
+hist(df$Sepal.Length)
+hist(mean_list_1)
+hist(mean_list_2)
+hist(mean_list_3)
+
 
 
